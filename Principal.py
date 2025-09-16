@@ -1,14 +1,23 @@
 class ServidorCorreo:
-    def __init__ (self, nombre):
-        self.nombre=nombre
-        self.__usuarios=
-        self.__registros=
+    def __init__ (self):
+        self.__usuarios={
+            "Camila": Usuario("Camila", "abcd"),
+            "Jorge": Usuario("Jorge", "1234"),
+        }
+    def _MostrarUsuario (self):
+        for usuario in self.__usuarios.values():
+            print(usuario.devolver_info())
 
 class Usuario:
-    def __init__ (self, nombre, correo, contraseña):
+    def __init__ (self, nombre, contraseña):
         self.nombre=nombre
-        self.correo=correo
         self.__contraseña=contraseña
+    def get_contraseña(self):
+        return self.__contraseña
+    def __informacion(self):
+        return f"Usuario({self.nombre}, contraseña: {self.get_contraseña()})"
+    def devolver_info(self):
+        return self.__informacion()
 
 class Carpeta:
     def __init__(self, propietario, nombre, mensaje):
@@ -23,3 +32,7 @@ class Mensaje:
         self.asunto=asunto
         self.cuerpo=cuerpo
         self.__id=id
+
+
+servidor=ServidorCorreo()
+servidor._MostrarUsuario()
