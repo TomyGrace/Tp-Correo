@@ -10,18 +10,25 @@ class carpeta_abstracta (ABC):
     @abstractmethod
     def ListarMensajes(self):
         pass
+    
 
 
 
-class ServidorCorreo:
+class ServidorCorreo(carpeta_abstracta):
     def __init__ (self):
         self.__usuarios={
             "Camila": Usuario("Camila", "abcd"),
             "Jorge": Usuario("Jorge", "1234"),
         }
     def _MostrarUsuario (self):
-        for nombre, usuario in self.__usuarios.items():
+        for usuario in self.__usuarios.values():
             print(usuario.devolver_info())
+    def EnviarMensajes(self):
+        pass
+    def RecibirMensajes(self):
+        pass
+    def ListarMensajes(self):
+        pass
 
 class Usuario:
     def __init__ (self, nombre, contraseña):
@@ -47,12 +54,11 @@ class Carpeta(carpeta_abstracta):
         pass
 
 class Mensaje:
-    def __init__(self, destinatario, remitente, asunto, cuerpo, id):
+    def __init__(self, destinatario, remitente, asunto, cuerpo):
         self.destinatario=destinatario
         self.remitente=remitente
         self.asunto=asunto
         self.cuerpo=cuerpo
-        self.__id=id
 
 
 servidor=ServidorCorreo()
