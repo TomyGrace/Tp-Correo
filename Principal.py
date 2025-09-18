@@ -43,14 +43,17 @@ class Usuario(carpeta_abstracta):
         self.nombre=nombre
         self.__contraseña=contraseña
         self.__carpetas=[
-
+            Carpeta(self.nombre, "Bandeja de entrada"),
+            Carpeta(self.nombre, "Enviados"),
+            Carpeta(self.nombre, "Borradores"),
+            Carpeta(self.nombre, "Papelera"),
         ]
     def __get_contraseña(self):
         return self.__contraseña
     def __informacion(self):
         return f"Usuario({self.nombre})"
     def __get_carpeta(self):
-        return self.__carpetas
+        return self.__carpetas.nombre
     def devolver_info(self):
         return self.__informacion()
     def devolver_carpetas(self):
@@ -65,16 +68,16 @@ class Usuario(carpeta_abstracta):
         for carpeta in self.__carpetas:
             if carpeta.nombre == Nombre1:
                 print(f"La carpeta {carpeta.nombre} ya existe. Intente denuevo.")
-            else:
-                nueva_carpeta = Carpeta(self.nombre, Nombre1)
-                self.__carpetas.append(nueva_carpeta)
+                return
+            nueva_carpeta = Carpeta(self.nombre, Nombre1)
+            self.__carpetas.append(nueva_carpeta)
 
 class Carpeta(carpeta_abstracta):
     def __init__(self, propietario, nombre):
         self.propietario=propietario
         self.nombre=nombre
         self.mensaje=[
-
+            
         ]
     def EnviarMensajes(self):
         pass
@@ -82,8 +85,6 @@ class Carpeta(carpeta_abstracta):
         pass
     def ListarMensajes(self):
         pass
-    def __str__ (self):
-        return self.nombre
 
 class Mensaje:
     def __init__(self, destinatario, remitente, asunto, cuerpo):
