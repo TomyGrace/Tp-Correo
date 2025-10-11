@@ -52,5 +52,4 @@ class Carpeta(carpeta_abstracta):
             sub_mensaje = c.BuscarMensaje(asunto, remitente)
             if sub_mensaje is not None:
                 return sub_mensaje
-            else:
-                return None
+        return None

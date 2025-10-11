@@ -56,3 +56,16 @@ class Usuario(carpeta_abstracta):
             print(f"No existe la carpeta {nombre}")
         else: 
             print(resultado.nombre)
+
+    def Buscar_Mensaje(self, asunto, remitente):
+        resultado = self.servidor.Buscar_Mensaje(asunto, remitente, self)
+        if resultado is not None:
+            print(resultado)
+        else: 
+            print("No existe un mensaje con ese usuario y remitente")
+
+    def AgregarCarpetas(self, nombre):
+        self.servidor.AgregarCarpeta(nombre, self)
+
+    def CrearCarpeta(self, nombre):
+        self.__carpetas.append(Carpeta(self, nombre))

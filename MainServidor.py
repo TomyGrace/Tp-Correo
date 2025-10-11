@@ -51,4 +51,20 @@ class ServidorCorreo(carpeta_abstracta):
                 for c in n.devolver_lista_carpetas():
                     Carpeta=c.BuscarSubcarpeta(nombre)
                     if Carpeta:
-                        return Carpeta
+                        return Carpeta  
+    def Buscar_Mensaje(self, asunto, remitente, usuario):
+        for u in self._usuarios.values():
+            if u == usuario:
+                for c in u.devolver_lista_carpetas():
+                    resultado = c.BuscarMensaje(asunto, remitente)
+                    if resultado: 
+                        return resultado 
+                return None
+
+    def AgregarCarpeta(self, nombre, usuario):
+        for u in self._usuarios.values():
+            if u == usuario:
+                for c in u.devolver_lista_carpetas():
+                    if c == nombre:
+                        return print("La carpeta ya existe")
+        u.CrearCarpeta(nombre)
