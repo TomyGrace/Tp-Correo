@@ -45,3 +45,10 @@ class ServidorCorreo(carpeta_abstracta):
                 for m in k.devolver_lista_carpetas():
                     if m.nombre == "Borrador":
                         m.RedactarMensajes(destinatario, k.nombre, asunto, cuerpo)
+    def Buscar_Subcarpetas(self, usuario, nombre):
+        for n in self._usuarios.values():
+            if n == usuario:
+                for c in n.devolver_lista_carpetas():
+                    Carpeta=c.BuscarSubcarpeta(nombre)
+                    if Carpeta:
+                        return Carpeta

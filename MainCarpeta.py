@@ -6,6 +6,9 @@ class Carpeta(carpeta_abstracta):
     def __init__(self, propietario, nombre):
         self.propietario=propietario
         self.nombre=nombre
+        self.subcarpeta=[
+
+        ]
         self.__mensaje=[
             
         ]
@@ -32,3 +35,22 @@ class Carpeta(carpeta_abstracta):
         for mensaje in self.__mensaje:
             if mensaje.id == id_mensaje:
                 self.__mensaje.remove(mensaje)
+# Metodos de Busqueda recursiva
+    def BuscarSubcarpeta(self, nombre):
+        if nombre == self.nombre:
+            return self
+        for sub in self.subcarpeta:
+            Resultado = sub.BuscarSubcarpeta(nombre)
+            if Resultado:
+                return Resultado
+            return None
+    def BuscarMensaje(self, asunto, remitente):
+        for m in self.__mensaje:
+            if m.asunto == asunto and m.remitente == remitente:
+                return m
+        for c in self.subcarpeta:
+            sub_mensaje = c.BuscarMensaje(asunto, remitente)
+            if sub_mensaje is not None:
+                return sub_mensaje
+            else:
+                return None

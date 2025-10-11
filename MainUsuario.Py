@@ -49,3 +49,10 @@ class Usuario(carpeta_abstracta):
                 carpeta.RecibirMensajes(mensaje)
     def ListarMensajes(self, carpeta):
         self.servidor.ListarMensajes(carpeta, self.nombre)
+# metodos de busqueda recursiva
+    def Buscar_Subcarpeta(self, nombre):
+        resultado = self.servidor.Buscar_Subcarpetas(self, nombre)
+        if resultado == None:
+            print(f"No existe la carpeta {nombre}")
+        else: 
+            print(resultado.nombre)
