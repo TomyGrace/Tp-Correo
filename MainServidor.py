@@ -50,17 +50,42 @@ class ServidorCorreo(carpeta_abstracta):
             if n == usuario:
                 for c in n.devolver_lista_carpetas():
                     Carpeta=c.BuscarSubcarpeta(nombre)
-                    if Carpeta:
-                        return Carpeta  
+                    if Carpeta is not None:
+                        return Carpeta
+                return None
     def Buscar_Mensaje(self, asunto, remitente, usuario):
         for u in self._usuarios.values():
             if u == usuario:
                 for c in u.devolver_lista_carpetas():
                     resultado = c.BuscarMensaje(asunto, remitente)
-                    if resultado: 
-                        return resultado 
+                    if resultado:
+                        return resultado
                 return None
-
+    def MoverMensaje(self, mensaje, origen, destino, usuario):
+        for u in self._usuarios.values():
+            if u == usuario:
+                if isinstance(origen, Carpeta):
+                    carpeta_origen=origen
+                else:
+                    carpeta_origen=None
+                    for c in u.devolver_lista_carpetas():
+                        carpeta_origen=c.BuscarSubcarpeta(origen)
+                        if carpeta_origen:
+                            break
+                if isinstance(destino, Carpeta):
+                    carpeta_destino=destino
+                else:
+                    carpeta_destino=None
+                    for c in u.devolver_lista_carpetas():
+                        carpeta_destino=c.BuscarSubcarpeta(destino)
+                        if carpeta_destino:
+                            break
+                if carpeta_destino is None or carpeta_origen is None:
+                    print("No se encontro la carpeta origen o destino. Revise los parametros")
+                    return
+                carpeta_destino.RecibirMensajes(mensaje)
+                carpeta_origen.EliminarMensaje(mensaje.id)
+                return
     def AgregarCarpeta(self, nombre, usuario):
         for u in self._usuarios.values():
             if u == usuario:

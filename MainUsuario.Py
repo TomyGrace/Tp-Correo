@@ -56,13 +56,27 @@ class Usuario(carpeta_abstracta):
             print(f"No existe la carpeta {nombre}")
         else: 
             print(resultado.nombre)
-
+# busca mensajes por asunto y remitente en carpetas y subcarpetas del usuario que las solicita, (recorre en preorder)
     def Buscar_Mensaje(self, asunto, remitente):
         resultado = self.servidor.Buscar_Mensaje(asunto, remitente, self)
         if resultado is not None:
-            print(resultado)
+            mensaje_f, carpeta_origen = resultado
+            print(mensaje_f)
         else: 
             print("No existe un mensaje con ese usuario y remitente")
+# mueve mensajes, necesita asunto, remitente y carpeta de destino para mover el mensaje
+    def MoverMensaje(self, asunto, remitente, carpeta_destino):
+        resultado = self.servidor.Buscar_Mensaje(asunto, remitente, self)
+        if resultado is None:
+            print("El mensaje que intenta mover no existe, revise los parametros indicados")
+            return
+        mensaje, ubicacion = resultado
+        destino_mensaje = self.servidor.Buscar_Subcarpetas(self, carpeta_destino)
+        if destino_mensaje is None:
+            print(f"No existe la carpeta {destino_mensaje}. Por favor, indique otro destino")
+            return
+        self.servidor.MoverMensaje(mensaje, ubicacion, destino_mensaje, self)
+        print(f"El mensaje se movio exitosamente a {destino_mensaje.nombre}")
 
     def AgregarCarpetas(self, nombre):
         self.servidor.AgregarCarpeta(nombre, self)

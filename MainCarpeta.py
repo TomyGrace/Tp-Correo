@@ -7,7 +7,6 @@ class Carpeta(carpeta_abstracta):
         self.propietario=propietario
         self.nombre=nombre
         self.subcarpeta=[
-
         ]
         self.__mensaje=[
             
@@ -43,11 +42,11 @@ class Carpeta(carpeta_abstracta):
             Resultado = sub.BuscarSubcarpeta(nombre)
             if Resultado:
                 return Resultado
-            return None
+        return None
     def BuscarMensaje(self, asunto, remitente):
         for m in self.__mensaje:
             if m.asunto == asunto and m.remitente == remitente:
-                return m
+                return (m, self)
         for c in self.subcarpeta:
             sub_mensaje = c.BuscarMensaje(asunto, remitente)
             if sub_mensaje is not None:
